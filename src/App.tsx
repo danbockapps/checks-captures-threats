@@ -1,16 +1,16 @@
 import Board from './Board'
 import Move from './Move'
 import './moves.scss'
-import { FC } from 'react'
-
-const moves = ['Bxd5', 'Nxd5']
+import { FC, useState } from 'react'
 
 const App: FC = () => {
+  const [moves, setMoves] = useState<string[]>(['Bxd5', 'Nxd5'])
+
   return (
     <div className='App'>
       <div className='moves'>
         {moves.map(m => (
-          <Move>{m}</Move>
+          <Move onClick={() => setMoves(moves.filter(move => move !== m))}>{m}</Move>
         ))}
       </div>
       <Board />

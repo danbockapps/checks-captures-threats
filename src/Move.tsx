@@ -1,8 +1,12 @@
 import { FC, PropsWithChildren } from 'react'
 
-const Move: FC<PropsWithChildren<{}>> = props => (
-  <div className='move'>
-    <img src='x.svg' />
+interface Props {
+  onClick: () => void
+}
+
+const Move: FC<PropsWithChildren<Props>> = props => (
+  <div className='move' onClick={props.onClick}>
+    <img alt='close' src='x.svg' />
     {props.children}
   </div>
 )
