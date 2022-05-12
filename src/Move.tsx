@@ -1,5 +1,10 @@
 import { FC, PropsWithChildren } from 'react'
 
-const Move: FC<PropsWithChildren<{}>> = props => <div className='move'>{props.children}</div>
+const Move: FC<PropsWithChildren<{}>> = props => (
+  <div className='move'>
+    <img src='x.svg' />
+    {props.children}
+  </div>
+)
 
 export default Move

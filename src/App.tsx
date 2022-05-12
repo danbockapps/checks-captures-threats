@@ -1,10 +1,11 @@
 import Board from './Board'
 import Move from './Move'
 import './moves.scss'
+import { FC } from 'react'
 
 const moves = ['Bxd5', 'Nxd5']
 
-function App() {
+const App: FC = () => {
   return (
     <div className='App'>
       <div className='moves'>
