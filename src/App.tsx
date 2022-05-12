@@ -10,12 +10,18 @@ const App: FC = () => {
     <div className='App'>
       <div className='moves'>
         {moves.map(m => (
-          <Move onClick={() => setMoves(moves.filter(move => move !== m))}>{m}</Move>
+          <Move key={m} onClick={() => setMoves(moves.filter(move => move !== m))}>
+            {m}
+          </Move>
         ))}
       </div>
-      <Board />
+      <Board addMove={(move: string) => setMoves(dedupe([...moves, move]))} />
     </div>
   )
+}
+
+function dedupe<T>(arr: T[]) {
+  return Array.from(new Set(arr))
 }
 
 export default App
