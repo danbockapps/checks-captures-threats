@@ -13,7 +13,7 @@
     "@types/react-dom": "^18.0.0",
     "chess.js": "^0.13.1",
     "react": "^18.1.0",
-    "react-chessboard": "^1.2.3",
+    "react-chessboard": "https://gitpkg.now.sh/danbockapps/react-display-chessboard/package?main",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "sass": "^1.51.0",
