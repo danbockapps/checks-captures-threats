@@ -1,8 +1,10 @@
 import { FC, useState } from 'react'
 import { Chessboard } from 'react-chessboard'
 import { Chess, Square } from 'chess.js'
+import squaresFromMove from './functions/squaresFromMove'
 
 interface Props {
+  moves: string[]
   addMove: (move: string) => void
 }
 
@@ -31,9 +33,10 @@ const Board: FC<Props> = props => {
       onTouchEnd={onMoveEnd}
       onTouchMove={s => s !== selectedSquare && setCurrentArrowEnd(s)}
       onTouchStart={onMoveStart}
-      customArrows={
-        selectedSquare && currentArrowEnd ? [[selectedSquare, currentArrowEnd]] : undefined
-      }
+      customArrows={[
+        ...(selectedSquare && currentArrowEnd ? [[selectedSquare, currentArrowEnd]] : []),
+        ...props.moves.map(squaresFromMove(position)),
+      ]}
     />
   )
 }

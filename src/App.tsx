@@ -15,7 +15,7 @@ const App: FC = () => {
           </Move>
         ))}
       </div>
-      <Board addMove={(move: string) => setMoves(dedupe([...moves, move]))} />
+      <Board {...{ moves }} addMove={(move: string) => setMoves(dedupe([...moves, move]))} />
     </div>
   )
 }
