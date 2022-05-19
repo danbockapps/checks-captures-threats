@@ -1,7 +1,9 @@
-import { FC, useState } from 'react'
-import { Chessboard } from 'react-chessboard'
+import { parse, ParseTree } from '@mliebelt/pgn-parser'
 import { Chess, Square } from 'chess.js'
+import { FC, useEffect, useState } from 'react'
+import { Chessboard } from 'react-chessboard'
 import squaresFromMove from './functions/squaresFromMove'
+import getRandomFen from './functions/getRandomFen'
 
 interface Props {
   moves: string[]
@@ -12,7 +14,19 @@ const Board: FC<Props> = props => {
   const [selectedSquare, setSelectedSquare] = useState<Square>()
   const [currentArrowEnd, setCurrentArrowEnd] = useState<Square>()
 
-  const position = '2r2rk1/pp2bp1p/1qb1pnp1/3nN1B1/3P4/P1NQ4/BP3PPP/2R2RK1 w Qq - 0 1'
+  //TODO this is probably more state variables than is necessary.
+  // const [games, setGames] = useState<ParseTree[]>([])
+  const [position, setPosition] = useState<string>()
+
+  useEffect(() => {
+    fetch('https://lichess.org/api/games/user/imandrastoth?max=20')
+      .then(response => response.text())
+      .then(pgn => {
+        const newGames = parse(pgn, { startRule: 'games' }) as ParseTree[]
+        setPosition(getRandomFen(newGames))
+        // setGames(newGames)
+      })
+  }, [])
 
   const onMoveStart = (square: Square) => setSelectedSquare(square)
   const onMoveEnd = (square: Square) => {
@@ -35,7 +49,7 @@ const Board: FC<Props> = props => {
       onTouchStart={onMoveStart}
       customArrows={[
         ...(selectedSquare && currentArrowEnd ? [[selectedSquare, currentArrowEnd]] : []),
-        ...props.moves.map(squaresFromMove(position)),
+        ...props.moves.map(squaresFromMove(position || '')),
       ]}
     />
   )

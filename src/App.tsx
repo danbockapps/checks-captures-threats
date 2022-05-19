@@ -1,10 +1,10 @@
+import { FC, useState } from 'react'
 import Board from './Board'
 import Move from './Move'
 import './moves.scss'
-import { FC, useState } from 'react'
 
 const App: FC = () => {
-  const [moves, setMoves] = useState<string[]>(['Bxd5', 'Nxd5'])
+  const [moves, setMoves] = useState<string[]>([])
 
   return (
     <div className='App'>

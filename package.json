@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mliebelt/pgn-parser": "^1.4.4",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
@@ -13,7 +14,7 @@
     "@types/react-dom": "^18.0.0",
     "chess.js": "^0.13.1",
     "react": "^18.1.0",
-    "react-chessboard": "https://gitpkg.now.sh/danbockapps/react-display-chessboard/package?ca0a2d2f77991078f39edb75658b80e9bf95af71",
+    "react-chessboard": "https://gitpkg.now.sh/danbockapps/react-display-chessboard/package?fd2d4b738a8174f2cc661423a76cc586383184f4",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "sass": "^1.51.0",
