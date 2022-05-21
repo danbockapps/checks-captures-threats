@@ -13,6 +13,7 @@ interface Props {
 const Board: FC<Props> = props => {
   const [selectedSquare, setSelectedSquare] = useState<Square>()
   const [currentArrowEnd, setCurrentArrowEnd] = useState<Square>()
+  const [chessboardSize, setChessboardSize] = useState<number>()
 
   //TODO this is probably more state variables than is necessary.
   // const [games, setGames] = useState<ParseTree[]>([])
@@ -26,6 +27,15 @@ const Board: FC<Props> = props => {
         setPosition(getRandomFen(newGames))
         // setGames(newGames)
       })
+  }, [])
+
+  useEffect(() => {
+    const handleResize = () =>
+      setChessboardSize((document.getElementsByClassName('App')[0] as HTMLElement).offsetWidth)
+
+    window.addEventListener('resize', handleResize)
+    handleResize()
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   const onMoveStart = (square: Square) => setSelectedSquare(square)
@@ -43,7 +53,7 @@ const Board: FC<Props> = props => {
   return (
     <Chessboard
       {...{ position }}
-      boardWidth={400}
+      boardWidth={chessboardSize}
       onTouchEnd={onMoveEnd}
       onTouchMove={s => s !== selectedSquare && setCurrentArrowEnd(s)}
       onTouchStart={onMoveStart}
