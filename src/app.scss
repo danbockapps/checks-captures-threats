@@ -1,5 +1,20 @@
 .app {
+  @media (hover: hover) and (pointer: fine) {
+    display: none;
+  }
+
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.mouse {
+  @media (hover: none) and (pointer: coarse) {
+    display: none;
+  }
+
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
