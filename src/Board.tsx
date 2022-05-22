@@ -31,7 +31,7 @@ const Board: FC<Props> = props => {
 
   useEffect(() => {
     const handleResize = () =>
-      setChessboardSize((document.getElementsByClassName('App')[0] as HTMLElement).offsetWidth)
+      setChessboardSize((document.getElementsByClassName('app')[0] as HTMLElement).offsetWidth)
 
     window.addEventListener('resize', handleResize)
     handleResize()
