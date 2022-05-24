@@ -3,18 +3,25 @@ import { Chess } from 'chess.js'
 import { FC, useState } from 'react'
 import './app.scss'
 import Board from './Board'
-import DoneButton from './DoneButton'
+import Bottom from './Bottom'
 import usePosition from './functions/usePosition'
 import './moves.scss'
 
 const Main: FC = () => {
   const [moves, setMoves] = useState<string[]>([])
+  const [mode, setMode] = useState<Mode>('playing')
   const { position, next } = usePosition()
+
+  const reset = () => {
+    setMoves([])
+    setMode('playing')
+    next()
+  }
 
   return (
     <>
       <div className='app'>
-        <Typography variant='body1' className='header'>
+        <Typography variant='h5' className='header'>
           {new Chess(position).turn() === 'w' ? 'White' : 'Black'} to move. Find all the checks,
           captures, and threats.
         </Typography>
@@ -33,9 +40,10 @@ const Main: FC = () => {
         <Board
           {...{ position, moves }}
           addMove={(move: string) => setMoves(dedupe([...moves, move]))}
+          disabled={mode === 'results'}
         />
 
-        <DoneButton onClick={next} />
+        <Bottom {...{ mode, setMode, position, moves, reset }} />
       </div>
       <div className='mouse'>
         <Typography>This app works on touchscreen devices only. Try it on your phone!</Typography>
@@ -47,5 +55,7 @@ const Main: FC = () => {
 function dedupe<T>(arr: T[]) {
   return Array.from(new Set(arr))
 }
+
+export type Mode = 'playing' | 'results'
 
 export default Main

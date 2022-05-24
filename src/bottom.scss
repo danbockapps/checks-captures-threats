@@ -1,0 +1,12 @@
+.bottom {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+
+  &-playing {
+    justify-content: center;
+  }
+
+  &-results {
+  }
+}

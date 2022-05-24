@@ -7,6 +7,7 @@ interface Props {
   moves: string[]
   addMove: (move: string) => void
   position?: string
+  disabled?: boolean
 }
 
 const Board: FC<Props> = props => {
@@ -35,13 +36,15 @@ const Board: FC<Props> = props => {
     }
   }
 
+  const [onTouchStart, onTouchMove, onTouchEnd] = props.disabled
+    ? [undefined, undefined, undefined]
+    : [onMoveStart, (s: Square) => s !== selectedSquare && setCurrentArrowEnd(s), onMoveEnd]
+
   return (
     <Chessboard
       position={props.position}
       boardWidth={chessboardSize}
-      onTouchEnd={onMoveEnd}
-      onTouchMove={s => s !== selectedSquare && setCurrentArrowEnd(s)}
-      onTouchStart={onMoveStart}
+      {...{ onTouchStart, onTouchMove, onTouchEnd }}
       customArrows={[
         ...(selectedSquare && currentArrowEnd ? [[selectedSquare, currentArrowEnd]] : []),
         ...props.moves.map(squaresFromMove(props.position || '')),
