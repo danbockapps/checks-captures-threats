@@ -33,6 +33,7 @@ const Main: FC = () => {
               label={m}
               color='primary'
               onDelete={() => setMoves(moves.filter(move => move !== m))}
+              className='move-chip'
             />
           ))}
         </div>

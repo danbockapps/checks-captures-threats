@@ -1,0 +1,18 @@
+.results {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.7em;
+
+  .missed-list {
+    margin-top: 0.5em;
+
+    .missed-chip {
+      margin-right: 0.3em;
+    }
+  }
+
+  .next {
+    flex: 1;
+  }
+}
