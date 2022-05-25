@@ -12,12 +12,12 @@ const usePosition = () => {
       .then(response => response.text())
       .then(pgn => {
         const newGames = parse(pgn, { startRule: 'games' }) as ParseTree[]
-        setPosition(getRandomFen(newGames))
+        setPosition(getRandomFen(newGames, 20))
         setGames(newGames)
       })
   }, [])
 
-  const next = () => setPosition(getRandomFen(games))
+  const next = () => setPosition(getRandomFen(games, 20))
 
   return { position, next }
 }

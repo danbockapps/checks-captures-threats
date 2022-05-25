@@ -42,6 +42,7 @@ const Board: FC<Props> = props => {
 
   return (
     <Chessboard
+      animationDuration={0}
       position={props.position}
       boardWidth={chessboardSize}
       {...{ onTouchStart, onTouchMove, onTouchEnd }}
