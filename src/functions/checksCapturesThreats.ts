@@ -21,11 +21,7 @@ const getAttacksWithLess = (chess: ChessInstance) =>
 
       return ch2
         .moves({ verbose: true })
-        .filter(m2 => m1.to === m2.from)
-        .reduce<boolean>(
-          (acc, m2) => acc || (!!m2.captured && greaterValueThan(m2.captured, m2.piece)),
-          false,
-        )
+        .some(m2 => m1.to === m2.from && m2.captured && greaterValueThan(m2.captured, m2.piece))
     })
     .map(m => m.san)
 
