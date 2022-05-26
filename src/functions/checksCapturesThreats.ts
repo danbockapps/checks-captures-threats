@@ -1,7 +1,7 @@
 import { Chess, ChessInstance, PieceType } from 'chess.js'
 
 export const getChecksCapturesThreats = (ch: ChessInstance) =>
-  Array.from(new Set([...getChecks(ch), ...getCaptures(ch), ...getAttacksWithLess(ch)]))
+  Array.from(new Set([...getChecks(ch), ...getCaptures(ch), ...getThreats(ch)]))
 
 const getChecks = (ch: ChessInstance) => ch.moves().filter(m => m.includes('+'))
 
@@ -11,7 +11,7 @@ const getCaptures = (ch: ChessInstance) =>
     .filter(m => m.flags.includes('c'))
     .map(m => m.san)
 
-const getAttacksWithLess = (chess: ChessInstance) =>
+const getThreats = (chess: ChessInstance) =>
   chess
     .moves({ verbose: true })
     .filter(m1 => {
@@ -19,9 +19,18 @@ const getAttacksWithLess = (chess: ChessInstance) =>
       ch2.move(m1.san)
       ch2.load(switchTurn(ch2.fen()))
 
-      return ch2
-        .moves({ verbose: true })
-        .some(m2 => m1.to === m2.from && m2.captured && greaterValueThan(m2.captured, m2.piece))
+      return ch2.moves({ verbose: true }).some(m2 => {
+        // Attack with something worth less
+        if (m1.to === m2.from && m2.captured && greaterValueThan(m2.captured, m2.piece)) return true
+
+        // Attack something undefended
+        if (m2.captured) {
+          const ch3 = new Chess(ch2.fen())
+          ch3.move(m2.san)
+          console.log(m1.san, m2.san, !ch3.moves({ verbose: true }).some(m3 => m2.to === m3.to))
+          return !ch3.moves({ verbose: true }).some(m3 => m2.to === m3.to)
+        } else return false
+      })
     })
     .map(m => m.san)
 
