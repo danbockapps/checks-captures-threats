@@ -35,7 +35,6 @@ const getThreats = (chess: ChessInstance) =>
             if (m2.captured) {
               const ch3 = new Chess(ch2.fen())
               ch3.move(m2.san)
-              console.log(m1.san, m2.san, !ch3.moves({ verbose: true }).some(m3 => m2.to === m3.to))
               return !ch3.moves({ verbose: true }).some(m3 => m2.to === m3.to)
             } else return false
           })

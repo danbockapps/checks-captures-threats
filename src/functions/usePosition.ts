@@ -8,7 +8,7 @@ const usePosition = () => {
   const [games, setGames] = useState<ParseTree[]>([])
 
   useEffect(() => {
-    fetch('https://lichess.org/api/games/user/imandrastoth?max=20')
+    fetch('sample.pgn')
       .then(response => response.text())
       .then(pgn => {
         const newGames = parse(pgn, { startRule: 'games' }) as ParseTree[]
