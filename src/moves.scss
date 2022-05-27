@@ -1,7 +1,9 @@
 .moves {
   flex: 2;
   display: flex;
+  flex-wrap: wrap;
   margin-left: 0.5em;
+  align-items: flex-start;
 
   .move-chip {
     margin-right: 0.3em;
