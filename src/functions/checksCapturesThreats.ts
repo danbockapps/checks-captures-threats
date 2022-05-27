@@ -19,18 +19,27 @@ const getThreats = (chess: ChessInstance) =>
       ch2.move(m1.san)
       ch2.load(switchTurn(ch2.fen()))
 
-      return ch2.moves({ verbose: true }).some(m2 => {
-        // Attack with something worth less
-        if (m1.to === m2.from && m2.captured && greaterValueThan(m2.captured, m2.piece)) return true
+      return (
+        ch2
+          .moves({ verbose: true })
 
-        // Attack something undefended
-        if (m2.captured) {
-          const ch3 = new Chess(ch2.fen())
-          ch3.move(m2.san)
-          console.log(m1.san, m2.san, !ch3.moves({ verbose: true }).some(m3 => m2.to === m3.to))
-          return !ch3.moves({ verbose: true }).some(m3 => m2.to === m3.to)
-        } else return false
-      })
+          // Exclude moves that were already legal in the original. We only want new threats.
+          .filter(m2 => !chess.moves().includes(m2.san))
+
+          .some(m2 => {
+            // Attack with something worth less
+            if (m1.to === m2.from && m2.captured && greaterValueThan(m2.captured, m2.piece))
+              return true
+
+            // Attack something undefended
+            if (m2.captured) {
+              const ch3 = new Chess(ch2.fen())
+              ch3.move(m2.san)
+              console.log(m1.san, m2.san, !ch3.moves({ verbose: true }).some(m3 => m2.to === m3.to))
+              return !ch3.moves({ verbose: true }).some(m3 => m2.to === m3.to)
+            } else return false
+          })
+      )
     })
     .map(m => m.san)
 
