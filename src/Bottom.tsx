@@ -5,15 +5,11 @@ import { MainContext } from './Main'
 import Results from './Results'
 
 const Bottom: FC = () => {
-  const context = useContext(MainContext)
+  const cx = useContext(MainContext)
 
   return (
-    <div className={`bottom bottom-${context.mode}`}>
-      {context.mode === 'playing' ? (
-        <DoneButton onClick={() => context.setMode('results')} />
-      ) : (
-        <Results />
-      )}
+    <div className={`bottom bottom-${cx.missed ? 'results' : 'playing'}`}>
+      {cx.missed ? <Results /> : <DoneButton onClick={cx.showResults} />}
     </div>
   )
 }

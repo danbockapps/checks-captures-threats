@@ -38,10 +38,9 @@ const Board: FC<Props> = props => {
     }
   }
 
-  const [onTouchStart, onTouchMove, onTouchEnd] =
-    cx.mode === 'results'
-      ? [undefined, undefined, undefined]
-      : [onMoveStart, (s: Square) => s !== selectedSquare && setCurrentArrowEnd(s), onMoveEnd]
+  const [onTouchStart, onTouchMove, onTouchEnd] = cx.missed
+    ? [undefined, undefined, undefined]
+    : [onMoveStart, (s: Square) => s !== selectedSquare && setCurrentArrowEnd(s), onMoveEnd]
 
   return (
     <Chessboard

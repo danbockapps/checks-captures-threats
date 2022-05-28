@@ -4,39 +4,39 @@ import { createContext, FC, useState } from 'react'
 import './app.scss'
 import Board from './Board'
 import Bottom from './Bottom'
+import { getChecksCapturesThreats } from './functions/checksCapturesThreats'
 import usePosition from './functions/usePosition'
 import './moves.scss'
 
-export type Mode = 'playing' | 'results'
-
 interface MainContextType {
   moves: string[]
-  mode: Mode
-  setMode: (mode: Mode) => void
   reset: () => void
   position?: string
+  missed?: string[]
+  showResults: () => void
 }
 
 export const MainContext = createContext<MainContextType>({
   moves: [],
-  mode: 'playing',
-  setMode: () => {},
   reset: () => {},
+  showResults: () => {},
 })
 
 const Main: FC = () => {
   const [moves, setMoves] = useState<string[]>([])
-  const [mode, setMode] = useState<Mode>('playing')
+  const [missed, setMissed] = useState<string[]>()
   const { position, next } = usePosition()
+
+  const showResults = () => setMissed(getChecksCapturesThreats(new Chess(position)))
 
   const reset = () => {
     setMoves([])
-    setMode('playing')
+    setMissed(undefined)
     next()
   }
 
   return (
-    <MainContext.Provider value={{ moves, mode, setMode, reset, position }}>
+    <MainContext.Provider value={{ moves, reset, position, missed, showResults }}>
       <div className='app'>
         <Typography variant='h5' className='header'>
           {new Chess(position).turn() === 'w' ? 'White' : 'Black'} to move. Find all the checks,
