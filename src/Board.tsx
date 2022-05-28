@@ -38,7 +38,7 @@ const Board: FC<Props> = props => {
     }
   }
 
-  const [onTouchStart, onTouchMove, onTouchEnd] = cx.missed
+  const [onTouchStart, onTouchMove, onTouchEnd] = cx.answers
     ? [undefined, undefined, undefined]
     : [onMoveStart, (s: Square) => s !== selectedSquare && setCurrentArrowEnd(s), onMoveEnd]
 

@@ -6,13 +6,13 @@ import './results.scss'
 const Results: FC = () => {
   const cx = useContext(MainContext)
 
-  return cx.missed ? (
+  return cx.answers ? (
     <div className='results'>
       <Typography className='summary'>
-        {cx.missed.length > 0 ? 'You missed:' : 'Got them all!'}
+        {cx.answers.length > 0 ? 'You missed:' : 'Got them all!'}
       </Typography>
       <div className='missed-list'>
-        {cx.missed
+        {cx.answers
           .filter(m => !cx.moves.includes(m))
           .map(m => (
             <Chip key={m} label={m} color='warning' className='missed-chip' />

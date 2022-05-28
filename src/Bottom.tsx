@@ -8,8 +8,8 @@ const Bottom: FC = () => {
   const cx = useContext(MainContext)
 
   return (
-    <div className={`bottom bottom-${cx.missed ? 'results' : 'playing'}`}>
-      {cx.missed ? <Results /> : <DoneButton onClick={cx.showResults} />}
+    <div className={`bottom bottom-${cx.answers ? 'results' : 'playing'}`}>
+      {cx.answers ? <Results /> : <DoneButton onClick={cx.showResults} />}
     </div>
   )
 }

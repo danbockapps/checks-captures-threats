@@ -12,7 +12,7 @@ interface MainContextType {
   moves: string[]
   reset: () => void
   position?: string
-  missed?: string[]
+  answers?: string[]
   showResults: () => void
 }
 
@@ -24,19 +24,19 @@ export const MainContext = createContext<MainContextType>({
 
 const Main: FC = () => {
   const [moves, setMoves] = useState<string[]>([])
-  const [missed, setMissed] = useState<string[]>()
+  const [answers, setAnswers] = useState<string[]>()
   const { position, next } = usePosition()
 
-  const showResults = () => setMissed(getChecksCapturesThreats(new Chess(position)))
+  const showResults = () => setAnswers(getChecksCapturesThreats(new Chess(position)))
 
   const reset = () => {
     setMoves([])
-    setMissed(undefined)
+    setAnswers(undefined)
     next()
   }
 
   return (
-    <MainContext.Provider value={{ moves, reset, position, missed, showResults }}>
+    <MainContext.Provider value={{ moves, reset, position, answers, showResults }}>
       <div className='app'>
         <Typography variant='h5' className='header'>
           {new Chess(position).turn() === 'w' ? 'White' : 'Black'} to move. Find all the checks,
@@ -48,10 +48,10 @@ const Main: FC = () => {
             <Chip
               key={m}
               label={m}
-              color={missed?.includes(m) ? 'success' : 'primary'}
+              color={answers?.includes(m) ? 'success' : 'primary'}
               className='move-chip'
-              size={missed ? 'small' : 'medium'}
-              onDelete={missed ? undefined : () => setMoves(moves.filter(move => move !== m))}
+              size={answers ? 'small' : 'medium'}
+              onDelete={answers ? undefined : () => setMoves(moves.filter(move => move !== m))}
             />
           ))}
         </div>
