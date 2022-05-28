@@ -10,6 +10,9 @@ export default createTheme({
     // User-drawn arrows
     secondary: { main: blueGrey[900] },
 
+    // Correct moves
+    success: { main: blueGrey[300] },
+
     // Missed results
     warning: { main: deepOrange[500] },
   },

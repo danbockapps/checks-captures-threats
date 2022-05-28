@@ -48,9 +48,10 @@ const Main: FC = () => {
             <Chip
               key={m}
               label={m}
-              color='primary'
-              onDelete={() => setMoves(moves.filter(move => move !== m))}
+              color={missed?.includes(m) ? 'success' : 'primary'}
               className='move-chip'
+              size={missed ? 'small' : 'medium'}
+              onDelete={missed ? undefined : () => setMoves(moves.filter(move => move !== m))}
             />
           ))}
         </div>
