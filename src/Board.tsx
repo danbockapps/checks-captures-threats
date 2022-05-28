@@ -12,12 +12,12 @@ interface Props {
 const Board: FC<Props> = props => {
   const [selectedSquare, setSelectedSquare] = useState<Square>()
   const [currentArrowEnd, setCurrentArrowEnd] = useState<Square>()
-  const [chessboardSize, setChessboardSize] = useState<number>()
+  const [screenWidth, setScreenWidth] = useState<number>()
   const cx = useContext(MainContext)
 
   useEffect(() => {
     const handleResize = () =>
-      setChessboardSize((document.getElementsByClassName('app')[0] as HTMLElement).offsetWidth)
+      setScreenWidth((document.getElementsByClassName('app')[0] as HTMLElement).offsetWidth)
 
     window.addEventListener('resize', handleResize)
     handleResize()
@@ -46,7 +46,7 @@ const Board: FC<Props> = props => {
     <Chessboard
       animationDuration={0}
       position={cx.position}
-      boardWidth={chessboardSize}
+      boardWidth={(screenWidth || 0) * (cx.answers ? 0.9 : 1)}
       {...{ onTouchStart, onTouchMove, onTouchEnd }}
       customArrows={[
         ...(selectedSquare && currentArrowEnd ? [[selectedSquare, currentArrowEnd]] : []),
