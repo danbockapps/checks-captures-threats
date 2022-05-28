@@ -1,3 +1,4 @@
+import { useTheme } from '@mui/material'
 import { Chess, Square } from 'chess.js'
 import { FC, useEffect, useState } from 'react'
 import { Chessboard } from 'react-chessboard'
@@ -23,6 +24,8 @@ const Board: FC<Props> = props => {
     handleResize()
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  const theme = useTheme()
 
   const onMoveStart = (square: Square) => setSelectedSquare(square)
   const onMoveEnd = (square: Square) => {
@@ -50,6 +53,9 @@ const Board: FC<Props> = props => {
         ...(selectedSquare && currentArrowEnd ? [[selectedSquare, currentArrowEnd]] : []),
         ...props.moves.map(squaresFromMove(props.position || '')),
       ]}
+      customArrowColor={theme.palette.secondary.main}
+      customLightSquareStyle={{ backgroundColor: theme.palette.primary.light }}
+      customDarkSquareStyle={{ backgroundColor: theme.palette.primary.dark }}
     />
   )
 }

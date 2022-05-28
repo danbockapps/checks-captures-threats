@@ -21,7 +21,7 @@ const Results: FC<Props> = props => {
       </Typography>
       <div className='missed-list'>
         {missed.map(m => (
-          <Chip key={m} label={m} color='error' className='missed-chip' />
+          <Chip key={m} label={m} color='warning' className='missed-chip' />
         ))}
       </div>
       <Button onClick={props.onClick} className='next'>
