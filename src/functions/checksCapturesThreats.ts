@@ -26,7 +26,7 @@ const getThreats = (chess: ChessInstance) => {
           .moves({ verbose: true })
 
           // Exclude moves that were already legal in the original. We only want new threats.
-          .filter(m2 => movesSet.has(m2.san))
+          .filter(m2 => !movesSet.has(m2.san))
 
           .some(m2 => {
             // Attack with something worth less
