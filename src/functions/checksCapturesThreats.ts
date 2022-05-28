@@ -11,8 +11,10 @@ const getCaptures = (ch: ChessInstance) =>
     .filter(m => m.flags.includes('c'))
     .map(m => m.san)
 
-const getThreats = (chess: ChessInstance) =>
-  chess
+const getThreats = (chess: ChessInstance) => {
+  const movesSet = new Set(chess.moves())
+
+  return chess
     .moves({ verbose: true })
     .filter(m1 => {
       const ch2 = new Chess(chess.fen())
@@ -24,7 +26,7 @@ const getThreats = (chess: ChessInstance) =>
           .moves({ verbose: true })
 
           // Exclude moves that were already legal in the original. We only want new threats.
-          .filter(m2 => !chess.moves().includes(m2.san))
+          .filter(m2 => movesSet.has(m2.san))
 
           .some(m2 => {
             // Attack with something worth less
@@ -41,6 +43,7 @@ const getThreats = (chess: ChessInstance) =>
       )
     })
     .map(m => m.san)
+}
 
 const greaterValueThan = (p1: PieceType, p2: PieceType) => {
   if (p1 === 'k' && p2 !== 'k') return true
