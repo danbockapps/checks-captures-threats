@@ -12,7 +12,7 @@ const getCaptures = (ch: ChessInstance) =>
     .map(m => m.san)
 
 const getThreats = (chess: ChessInstance) => {
-  const movesSet = new Set(chess.moves())
+  const movesSet = new Set(chess.moves().map(withoutCheck))
 
   return chess
     .moves({ verbose: true })
@@ -26,7 +26,7 @@ const getThreats = (chess: ChessInstance) => {
           .moves({ verbose: true })
 
           // Exclude moves that were already legal in the original. We only want new threats.
-          .filter(m2 => !movesSet.has(m2.san))
+          .filter(m2 => !movesSet.has(withoutCheck(m2.san)))
 
           .some(m2 => {
             // Attack with something worth less
@@ -62,3 +62,7 @@ const switchTurn = (fen: string) =>
       else return token
     })
     .join(' ')
+
+// Just like when we use toUpperCase to compare strings case-insensitively, we use this to
+// compare moves check-insensitively.
+const withoutCheck = (move: string) => move.replace('+', '')
