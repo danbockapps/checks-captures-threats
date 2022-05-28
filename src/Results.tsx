@@ -1,19 +1,14 @@
 import { Button, Chip, Typography } from '@mui/material'
 import { Chess } from 'chess.js'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { getChecksCapturesThreats } from './functions/checksCapturesThreats'
 import './results.scss'
+import { MainContext } from './Main'
 
-interface Props {
-  position?: string // TODO remove the ? maybe
-  moves: string[]
-  onClick: () => void
-}
+const Results: FC = () => {
+  const cx = useContext(MainContext)
 
-const Results: FC<Props> = props => {
-  const missed = getChecksCapturesThreats(new Chess(props.position)).filter(
-    m => !props.moves.includes(m),
-  )
+  const missed = getChecksCapturesThreats(new Chess(cx.position)).filter(m => !cx.moves.includes(m))
   return (
     <div className='results'>
       <Typography className='summary'>
@@ -24,7 +19,7 @@ const Results: FC<Props> = props => {
           <Chip key={m} label={m} color='warning' className='missed-chip' />
         ))}
       </div>
-      <Button onClick={props.onClick} className='next'>
+      <Button onClick={cx.reset} className='next'>
         Next
       </Button>
     </div>

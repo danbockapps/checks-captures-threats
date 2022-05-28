@@ -1,11 +1,28 @@
 import { Chip, Typography } from '@mui/material'
 import { Chess } from 'chess.js'
-import { FC, useState } from 'react'
+import { createContext, FC, useState } from 'react'
 import './app.scss'
 import Board from './Board'
 import Bottom from './Bottom'
 import usePosition from './functions/usePosition'
 import './moves.scss'
+
+export type Mode = 'playing' | 'results'
+
+interface MainContextType {
+  moves: string[]
+  mode: Mode
+  setMode: (mode: Mode) => void
+  reset: () => void
+  position?: string
+}
+
+export const MainContext = createContext<MainContextType>({
+  moves: [],
+  mode: 'playing',
+  setMode: () => {},
+  reset: () => {},
+})
 
 const Main: FC = () => {
   const [moves, setMoves] = useState<string[]>([])
@@ -19,7 +36,7 @@ const Main: FC = () => {
   }
 
   return (
-    <>
+    <MainContext.Provider value={{ moves, mode, setMode, reset, position }}>
       <div className='app'>
         <Typography variant='h5' className='header'>
           {new Chess(position).turn() === 'w' ? 'White' : 'Black'} to move. Find all the checks,
@@ -38,25 +55,19 @@ const Main: FC = () => {
           ))}
         </div>
 
-        <Board
-          {...{ position, moves }}
-          addMove={(move: string) => setMoves(dedupe([...moves, move]))}
-          disabled={mode === 'results'}
-        />
+        <Board addMove={(move: string) => setMoves(dedupe([...moves, move]))} />
 
-        <Bottom {...{ mode, setMode, position, moves, reset }} />
+        <Bottom />
       </div>
       <div className='mouse'>
         <Typography>This app works on touchscreen devices only. Try it on your phone!</Typography>
       </div>
-    </>
+    </MainContext.Provider>
   )
 }
 
 function dedupe<T>(arr: T[]) {
   return Array.from(new Set(arr))
 }
-
-export type Mode = 'playing' | 'results'
 
 export default Main
