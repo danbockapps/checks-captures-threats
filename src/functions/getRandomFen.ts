@@ -1,7 +1,11 @@
 import { ParseTree } from '@mliebelt/pgn-parser'
 import { Chess } from 'chess.js'
 
-const getRandomFen = (games: ParseTree[], startMove: number = 0) => {
+const getRandomFen = (
+  games: ParseTree[],
+  startMove: number = 0,
+  checksAllowed: boolean = false,
+): string => {
   const game = games[Math.floor(Math.random() * games.length)]
   const moveNum = Math.floor(Math.random() * (game.moves.length - startMove)) + startMove
 
@@ -10,7 +14,7 @@ const getRandomFen = (games: ParseTree[], startMove: number = 0) => {
     ch.move(game.moves[i].notation.notation)
   }
 
-  return ch.fen()
+  return checksAllowed || !ch.in_check() ? ch.fen() : getRandomFen(games, startMove, checksAllowed)
 }
 
 export default getRandomFen
