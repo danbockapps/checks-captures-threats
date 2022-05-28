@@ -8,7 +8,7 @@ const usePosition = () => {
   const [games, setGames] = useState<ParseTree[]>([])
 
   useEffect(() => {
-    fetch('sample.pgn')
+    fetch('Anand.pgn')
       .then(response => response.text())
       .then(pgn => {
         const newGames = parse(pgn, { startRule: 'games' }) as ParseTree[]
