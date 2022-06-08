@@ -1,4 +1,5 @@
-import { Chip, Typography } from '@mui/material'
+import HelpIcon from '@mui/icons-material/Help'
+import { Chip, IconButton, Typography } from '@mui/material'
 import { Chess } from 'chess.js'
 import { createContext, FC, useEffect, useState } from 'react'
 import './app.scss'
@@ -61,6 +62,9 @@ const Main: FC = () => {
         <Typography variant='h5' className='header'>
           {new Chess(position).turn() === 'w' ? 'White' : 'Black'} to move. Find all the checks,
           captures, and threats.
+          <IconButton onClick={() => setHelpOpen(true)}>
+            <HelpIcon />
+          </IconButton>
         </Typography>
 
         <div className='moves'>
