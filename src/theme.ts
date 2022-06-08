@@ -7,8 +7,8 @@ export default createTheme({
     background: { default: blueGrey[900] },
     primary: { light: blueGrey[100], main: blueGrey[100], dark: blueGrey[300] },
 
-    // User-drawn arrows
-    secondary: { main: blueGrey[900] },
+    // User-drawn arrows. A bit less red and green than blueGrey[500].
+    secondary: { main: '#506d8b' },
 
     // Correct moves
     success: { main: blueGrey[300] },
