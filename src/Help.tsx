@@ -8,7 +8,12 @@ const Help: FC = () => {
   const theme = useTheme()
 
   return (
-    <Dialog open={cx.helpOpen} onClose={() => cx.setHelpOpen(false)} scroll='paper'>
+    <Dialog
+      className='mobile-only'
+      open={cx.helpOpen}
+      onClose={() => cx.setHelpOpen(false)}
+      scroll='paper'
+    >
       <Typography variant='h2'>Checks</Typography>
       <Chessboard
         position='6k1/6pp/5p2/2r5/6N1/5B2/5PPP/5K2 w - - 0 1'

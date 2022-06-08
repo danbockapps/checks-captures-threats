@@ -1,8 +1,10 @@
-.app {
+.mobile-only {
   @media (hover: hover) and (pointer: fine) {
-    display: none;
+    display: none !important;
   }
+}
 
+.app {
   height: 100%;
   display: flex;
   flex-direction: column;

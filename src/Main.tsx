@@ -45,7 +45,7 @@ const Main: FC = () => {
     <MainContext.Provider
       value={{ moves, reset, position, answers, showResults, helpOpen, setHelpOpen }}
     >
-      <div className='app'>
+      <div className='mobile-only app'>
         <Typography variant='h5' className='header'>
           {new Chess(position).turn() === 'w' ? 'White' : 'Black'} to move. Find all the checks,
           captures, and threats.
