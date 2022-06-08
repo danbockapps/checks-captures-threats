@@ -1,6 +1,6 @@
 import { Chip, Typography } from '@mui/material'
 import { Chess } from 'chess.js'
-import { createContext, FC, useState } from 'react'
+import { createContext, FC, useEffect, useState } from 'react'
 import './app.scss'
 import Board from './Board'
 import Bottom from './Bottom'
@@ -17,6 +17,7 @@ interface MainContextType {
   showResults: () => void
   helpOpen: boolean
   setHelpOpen: (helpOpen: boolean) => void
+  screenWidth?: number
 }
 
 export const MainContext = createContext<MainContextType>({
@@ -31,7 +32,18 @@ const Main: FC = () => {
   const [moves, setMoves] = useState<string[]>([])
   const [answers, setAnswers] = useState<string[]>()
   const [helpOpen, setHelpOpen] = useState(true)
+  const [screenWidth, setScreenWidth] = useState<number>()
+
   const { position, next } = usePosition()
+
+  useEffect(() => {
+    const handleResize = () =>
+      setScreenWidth((document.getElementsByClassName('app')[0] as HTMLElement).offsetWidth)
+
+    window.addEventListener('resize', handleResize)
+    handleResize()
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const showResults = () => setAnswers(getChecksCapturesThreats(new Chess(position)))
 
@@ -43,7 +55,7 @@ const Main: FC = () => {
 
   return (
     <MainContext.Provider
-      value={{ moves, reset, position, answers, showResults, helpOpen, setHelpOpen }}
+      value={{ moves, reset, position, answers, showResults, helpOpen, setHelpOpen, screenWidth }}
     >
       <div className='mobile-only app'>
         <Typography variant='h5' className='header'>

@@ -1,6 +1,6 @@
 import { useTheme } from '@mui/material'
 import { Chess, Square } from 'chess.js'
-import { FC, useEffect, useState, useContext } from 'react'
+import { FC, useContext, useState } from 'react'
 import { Chessboard } from 'react-chessboard'
 import squaresFromMove from './functions/squaresFromMove'
 import { MainContext } from './Main'
@@ -12,17 +12,7 @@ interface Props {
 const Board: FC<Props> = props => {
   const [selectedSquare, setSelectedSquare] = useState<Square>()
   const [currentArrowEnd, setCurrentArrowEnd] = useState<Square>()
-  const [screenWidth, setScreenWidth] = useState<number>()
   const cx = useContext(MainContext)
-
-  useEffect(() => {
-    const handleResize = () =>
-      setScreenWidth((document.getElementsByClassName('app')[0] as HTMLElement).offsetWidth)
-
-    window.addEventListener('resize', handleResize)
-    handleResize()
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
 
   const theme = useTheme()
 
@@ -46,7 +36,7 @@ const Board: FC<Props> = props => {
     <Chessboard
       animationDuration={0}
       position={cx.position}
-      boardWidth={(screenWidth || 0) * (cx.answers ? 0.9 : 1)}
+      boardWidth={(cx.screenWidth || 0) * (cx.answers ? 0.9 : 1)}
       {...{ onTouchStart, onTouchMove, onTouchEnd }}
       customArrows={[
         ...(selectedSquare && currentArrowEnd ? [[selectedSquare, currentArrowEnd]] : []),
