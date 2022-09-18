@@ -19,7 +19,7 @@
     "@types/react-dom": "^18.0.0",
     "chess.js": "^0.13.1",
     "react": "^18.1.0",
-    "react-chessboard": "https://gitpkg.now.sh/danbockapps/react-display-chessboard/package?c5f9ffd4da1b63aa5efcf15140c5cbd9e7f48bd5",
+    "react-chessboard": "https://gitpkg.now.sh/danbockapps/react-display-chessboard/package?3261fa04ca5ab94478ecfb04e30f854323d51c3a",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "sass": "^1.51.0",

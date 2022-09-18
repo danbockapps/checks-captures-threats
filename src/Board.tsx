@@ -1,7 +1,7 @@
 import { useTheme } from '@mui/material'
 import { Chess, Square } from 'chess.js'
 import { FC, useContext, useState } from 'react'
-import { Chessboard } from 'react-chessboard'
+import { Arrow, Chessboard } from 'react-chessboard'
 import squaresFromMove from './functions/squaresFromMove'
 import { MainContext } from './Main'
 
@@ -39,10 +39,11 @@ const Board: FC<Props> = props => {
       boardWidth={(cx.screenWidth || 0) * (cx.answers ? 0.9 : 1)}
       {...{ onTouchStart, onTouchMove, onTouchEnd }}
       customArrows={[
-        ...(selectedSquare && currentArrowEnd ? [[selectedSquare, currentArrowEnd]] : []),
-        ...cx.moves.map(squaresFromMove(cx.position || '')),
+        ...(selectedSquare && currentArrowEnd
+          ? [{ color: theme.palette.secondary.main, start: selectedSquare, end: currentArrowEnd }]
+          : []),
+        ...(cx.moves.map(squaresFromMove(cx.position || '')).filter(c => c) as Arrow[]),
       ]}
-      customArrowColor={theme.palette.secondary.main}
       customLightSquareStyle={{ backgroundColor: theme.palette.primary.light }}
       customDarkSquareStyle={{ backgroundColor: theme.palette.primary.dark }}
     />
