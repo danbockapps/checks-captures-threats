@@ -16,11 +16,9 @@ const Results: FC = () => {
         {missed.length > 0 ? 'You missed:' : 'Got them all!'}
       </Typography>
       <div className='missed-list'>
-        {missed
-          .filter(m => !cx.moves.includes(m))
-          .map(m => (
-            <Chip key={m} label={m} color='warning' className='missed-chip' />
-          ))}
+        {missed.map(m => (
+          <Chip key={m} label={m} color='warning' className='missed-chip' />
+        ))}
       </div>
       <Button onClick={cx.reset} className='next'>
         Next
