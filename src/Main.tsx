@@ -38,8 +38,10 @@ const Main: FC = () => {
   const { position, next } = usePosition()
 
   useEffect(() => {
-    const handleResize = () =>
-      setScreenWidth((document.getElementsByClassName('app')[0] as HTMLElement).offsetWidth)
+    const handleResize = () => {
+      const el = document.getElementsByClassName('app')[0] as HTMLElement
+      setScreenWidth(Math.min(el.offsetWidth, el.offsetHeight / 1.45))
+    }
 
     window.addEventListener('resize', handleResize)
     handleResize()
