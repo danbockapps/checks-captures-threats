@@ -19,7 +19,7 @@ const HelpBoard: FC<Props> = props => {
         {props.title}
       </Typography>
       <Chessboard
-        boardWidth={(cx.screenWidth || 200) * 0.75}
+        boardWidth={(cx.screenWidth || 200) * 0.7}
         position={props.position}
         customArrows={props.customArrows}
         customLightSquareStyle={{ backgroundColor: theme.palette.primary.light }}
