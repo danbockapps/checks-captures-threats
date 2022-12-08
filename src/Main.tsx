@@ -1,5 +1,5 @@
 import HelpIcon from '@mui/icons-material/Help'
-import { Chip, IconButton, Typography } from '@mui/material'
+import { Chip, IconButton, Link, Typography } from '@mui/material'
 import { Chess } from 'chess.js'
 import { createContext, FC, useEffect, useState } from 'react'
 import './app.scss'
@@ -67,6 +67,9 @@ const Main: FC = () => {
           <IconButton onClick={() => setHelpOpen(true)}>
             <HelpIcon />
           </IconButton>
+          <Link variant='caption' href='https://twitter.com/boldmovebydan'>
+            Feedback
+          </Link>
         </Typography>
 
         <div className='moves'>
