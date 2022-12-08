@@ -1,0 +1,1 @@
+npm run build && scp -rP 7822 build/* danbockn@mi3-ss37.a2hosting.com:www/force

@@ -1,6 +1,6 @@
 {
   "name": "checks-captures-threats",
-  "homepage": ".",
+  "homepage": "force",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

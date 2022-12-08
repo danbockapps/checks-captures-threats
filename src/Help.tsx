@@ -41,7 +41,7 @@ const Help: FC = () => {
         />
 
         <HelpBoard
-          title='3. Threats with a piece worth less'
+          title='3. Attacks with a piece worth less'
           position='2k5/2r4p/6p1/PP6/8/2B1N3/6P1/5K2 w - - 0 1'
           customArrows={[
             { color, start: 'b5', end: 'b6' },
@@ -51,7 +51,7 @@ const Help: FC = () => {
         />
 
         <HelpBoard
-          title='4. Threats of undefended pieces'
+          title='4. Attacks of undefended pieces'
           position='8/3k1b2/p7/8/PR4P1/8/3K1B2/7r w - - 0 1'
           customArrows={[
             { color, start: 'b4', end: 'b6' },
