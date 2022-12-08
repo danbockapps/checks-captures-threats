@@ -42,7 +42,15 @@ const Board: FC<Props> = props => {
         ...(selectedSquare && currentArrowEnd
           ? [{ color: theme.palette.secondary.main, start: selectedSquare, end: currentArrowEnd }]
           : []),
-        ...(cx.moves.map(squaresFromMove(cx.position || '')).filter(c => c) as Arrow[]),
+
+        ...(cx.moves
+          .map(squaresFromMove(cx.position || '', theme.palette.secondary.main))
+          .filter(c => c) as Arrow[]),
+
+        ...((cx.answers
+          ?.filter(m => !cx.moves.includes(m))
+          .map(squaresFromMove(cx.position || '', theme.palette.warning.main))
+          .filter(c => c) as Arrow[]) || []),
       ]}
       customLightSquareStyle={{ backgroundColor: theme.palette.primary.light }}
       customDarkSquareStyle={{ backgroundColor: theme.palette.primary.dark }}

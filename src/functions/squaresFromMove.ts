@@ -1,14 +1,11 @@
-import { Chess, Square } from 'chess.js'
-import theme from '../theme'
+import { Chess } from 'chess.js'
 import { Arrow } from 'react-chessboard'
 
 const squaresFromMoves =
-  (fen: string) =>
+  (fen: string, color: string) =>
   (move: string): Arrow | undefined => {
     const verboseMove = new Chess(fen).moves({ verbose: true }).find(m => m.san === move)
-    return verboseMove
-      ? { color: theme.palette.secondary.main, start: verboseMove.from, end: verboseMove.to }
-      : undefined
+    return verboseMove ? { color, start: verboseMove.from, end: verboseMove.to } : undefined
   }
 
 export default squaresFromMoves
