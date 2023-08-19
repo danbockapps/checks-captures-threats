@@ -1,7 +1,7 @@
 import { Chess, ChessInstance, PieceType } from 'chess.js'
 
 export const getChecksCapturesThreats = (ch: ChessInstance) =>
-  Array.from(new Set([...getChecks(ch), ...getCaptures(ch), ...getThreats(ch)]))
+  Array.from(new Set([...getChecks(ch), ...getCaptures(ch), ...getThreats(ch), ...getMateInOneThreat(ch)]))
 
 const getChecks = (ch: ChessInstance) => ch.moves().filter(m => m.includes('+'))
 
@@ -43,6 +43,27 @@ const getThreats = (chess: ChessInstance) => {
       )
     })
     .map(m => m.san)
+}
+
+const getMateInOneThreat = (chess: ChessInstance) => {
+
+  return chess
+  .moves({ verbose: true })
+  .filter((m1) => {
+    if (!m1.san.includes('+')) {
+      const ch2 = new Chess(chess.fen());
+      ch2.move(m1.san);
+      ch2.load(switchTurn(ch2.fen())); 
+  
+      const checkMateInOne = ch2.moves({ verbose: true })
+        .filter(m2 => m2.san.includes('#'));
+  
+      return checkMateInOne.length > 0;
+    } else {
+      return false; // Remove moves that are checks
+    }
+  })
+  .map(m => m.san);
 }
 
 const greaterValueThan = (p1: PieceType, p2: PieceType) => {
