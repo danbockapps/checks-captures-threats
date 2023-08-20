@@ -54,11 +54,8 @@ const getMateInOneThreat = (chess: ChessInstance) => {
       const ch2 = new Chess(chess.fen());
       ch2.move(m1.san);
       ch2.load(switchTurn(ch2.fen())); 
-  
-      const checkMateInOne = ch2.moves({ verbose: true })
-        .filter(m2 => m2.san.includes('#'));
-  
-      return checkMateInOne.length > 0;
+
+      return ch2.moves({ verbose: true }).some(m2 => m2.san.includes('#'));  
     } else {
       return false; // Remove moves that are checks
     }
