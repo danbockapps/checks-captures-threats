@@ -59,6 +59,14 @@ const Help: FC = () => {
             { color, start: 'b4', end: 'f4' },
           ]}
         />
+
+        <HelpBoard
+          title='5. Threaten mate in one'
+          position='2R5/6pk/r1p2p1p/4p2P/4P1P1/rp2PK2/3R4/8 w - - 0 38'
+          customArrows={[
+            { color, start: 'd2', end: 'd8' },
+          ]}
+        />
       </DialogContent>
 
       <DialogActions>
